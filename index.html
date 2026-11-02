@@ -1,1 +1,383 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff7fa">
+<title>Dollcore Outfit Archive</title>
+<style>
+:root {
+  --pink:#e9a9c2;
+  --deep:#a85d7c;
+  --pale:#fff2f7;
+  --white:#fffdfd;
+  --ink:#705563;
+  --line:#f2d8e3;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:#fff8fb;
+  color:var(--ink);
+  font-family:"Georgia","Hiragino Mincho ProN",serif;
+}
+header {
+  text-align:center;
+  padding:42px 18px 28px;
+  background:linear-gradient(145deg,#fff,#ffeaf2);
+  border-bottom:1px solid var(--line);
+}
+.logo {
+  font-size:12px;
+  letter-spacing:5px;
+  color:#c58aa4;
+}
+h1 {
+  font-size:clamp(27px,7vw,44px);
+  font-weight:normal;
+  margin:15px 0 8px;
+  letter-spacing:2px;
+}
+.subtitle {
+  font-size:11px;
+  letter-spacing:3px;
+  color:#b58a9c;
+}
+.decor {
+  margin-top:18px;
+  color:#d99ab5;
+  letter-spacing:9px;
+}
+main {
+  max-width:1050px;
+  margin:auto;
+  padding:25px 16px 60px;
+}
+.intro {
+  text-align:center;
+  font-size:13px;
+  line-height:2;
+  margin:10px auto 30px;
+}
+.search {
+  display:block;
+  width:100%;
+  max-width:520px;
+  margin:0 auto 18px;
+  padding:14px 18px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:white;
+  color:var(--ink);
+  outline:none;
+}
+.filters {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:28px;
+}
+.filters button {
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:9px 17px;
+  background:white;
+  color:#a8758e;
+  font:inherit;
+  font-size:12px;
+  cursor:pointer;
+}
+.filters button.active {
+  background:#eab4ca;
+  color:white;
+  border-color:#eab4ca;
+}
+.count {
+  text-align:center;
+  font-size:11px;
+  letter-spacing:2px;
+  margin-bottom:18px;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:20px;
+}
+.card {
+  background:white;
+  border:1px solid var(--line);
+  border-radius:13px;
+  overflow:hidden;
+  box-shadow:0 5px 18px #dca9bb18;
+}
+.card img {
+  display:block;
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  background:#fff0f5;
+}
+.placeholder {
+  aspect-ratio:4/5;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(145deg,#fff0f6,#fffafd);
+  color:#d49ab2;
+  font-size:38px;
+}
+.card-info {padding:15px}
+.tag {
+  color:#c58aa4;
+  font-size:10px;
+  letter-spacing:2px;
+}
+.card h2 {
+  font-size:17px;
+  font-weight:normal;
+  margin:8px 0;
+}
+.description {
+  font-size:12px;
+  line-height:1.8;
+  color:#987e8b;
+  min-height:40px;
+}
+.detail-button {
+  width:100%;
+  padding:11px;
+  margin-top:12px;
+  border:1px solid #eac4d4;
+  border-radius:25px;
+  background:#fff6fa;
+  color:#a96d88;
+  font:inherit;
+  cursor:pointer;
+}
+.empty {
+  grid-column:1/-1;
+  text-align:center;
+  padding:50px 10px;
+  color:#bd91a5;
+}
+footer {
+  text-align:center;
+  padding:30px 15px;
+  background:#fff0f6;
+  color:#bd91a5;
+  font-size:11px;
+  letter-spacing:2px;
+}
+dialog {
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:0;
+  width:min(92%,600px);
+  max-height:90vh;
+  color:var(--ink);
+  background:#fffdfd;
+}
+dialog::backdrop {background:#49313b88}
+.modal-inner {padding:22px}
+.modal-inner img {
+  width:100%;
+  max-height:320px;
+  object-fit:contain;
+  background:#fff2f7;
+  border-radius:9px;
+}
+.modal-inner h2 {font-weight:normal}
+.prompt-label {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:20px 0 8px;
+  color:#a96d88;
+  font-size:13px;
+}
+.prompt {
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  background:#fff4f8;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:13px;
+  font-family:monospace;
+  font-size:11px;
+  line-height:1.7;
+  max-height:180px;
+  overflow:auto;
+}
+.copy {
+  border:0;
+  border-radius:20px;
+  padding:8px 14px;
+  background:#eab4ca;
+  color:white;
+  font-size:11px;
+  cursor:pointer;
+}
+.close {
+  display:block;
+  margin:20px auto 0;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:10px 25px;
+  background:white;
+  color:#a96d88;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">✧ DOLLCORE COLLECTION ✧</div>
+  <h1>Dollcore Outfit Archive</h1>
+  <div class="subtitle">A LITTLE CLOSET FULL OF DREAMS</div>
+  <div class="decor">♡ ✧ ♡ ✧ ♡</div>
+</header>
+
+<main>
+  <div class="intro">
+    Welcome to my little outfit archive.<br>
+    A collection of outfits, details and prompts.<br>
+    Find your favorite design and enjoy creating.
+  </div>
+
+  <input class="search" id="search" placeholder="♡ Search outfits...">
+
+  <div class="filters" id="filters">
+    <button class="active" data-category="all">All</button>
+    <button data-category="Sweet">Sweet</button>
+    <button data-category="Gothic">Gothic</button>
+    <button data-category="Uniform">Uniform</button>
+    <button data-category="Fantasy">Fantasy</button>
+    <button data-category="Other">Other</button>
+  </div>
+
+  <div class="count" id="count">0 OUTFITS</div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  ♡ DOLLCORE OUTFIT ARCHIVE ♡<br>
+  Made with love and ribbons.
+</footer>
+
+<dialog id="detail">
+  <div class="modal-inner" id="modalContent"></div>
+</dialog>
+
+<script>
+/*
+  OUTFIT DATA
+  新しい衣装はこの配列に追加してね。
+  画像は images フォルダに入れてパスを指定。
+*/
+const outfits = [
+  {
+    id: 1,
+    name: "Sweet Doll Dress",
+    category: "Sweet",
+    description: "A delicate pink doll-inspired outfit.",
+    image: "",
+    positive: "1girl, pink frilly dress, lace, satin ribbon, pearl accessories, elegant dollcore fashion, pastel pink, white lace",
+    negative: "low quality, blurry, bad anatomy, extra fingers, malformed hands"
+  },
+  {
+    id: 2,
+    name: "Gothic Ribbon",
+    category: "Gothic",
+    description: "A romantic black and pink gothic look.",
+    image: "",
+    positive: "1girl, black gothic dress, pink ribbons, lace trim, rose ornaments, layered frills, elegant gothic lolita fashion",
+    negative: "low quality, blurry, bad anatomy, extra fingers, malformed hands"
+  }
+];
+
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+const count = document.getElementById("count");
+let category = "all";
+
+function render() {
+  const q = search.value.toLowerCase();
+  const items = outfits.filter(o =>
+    (category === "all" || o.category === category) &&
+    (o.name + " " + o.description + " " + o.category).toLowerCase().includes(q)
+  );
+
+  count.textContent = items.length + " OUTFITS";
+
+  grid.innerHTML = items.length ? items.map(o => `
+    <article class="card">
+      ${o.image
+        ? `<img src="${o.image}" alt="${o.name}" loading="lazy">`
+        : `<div class="placeholder">♡</div>`}
+      <div class="card-info">
+        <div class="tag">${o.category.toUpperCase()}</div>
+        <h2>${o.name}</h2>
+        <div class="description">${o.description}</div>
+        <button class="detail-button" onclick="openDetail(${o.id})">View Outfit ♡</button>
+      </div>
+    </article>
+  `).join("") : `<div class="empty">No outfits found ♡</div>`;
+}
+
+function openDetail(id) {
+  const o = outfits.find(x => x.id === id);
+  document.getElementById("modalContent").innerHTML = `
+    ${o.image ? `<img src="${o.image}" alt="${o.name}">` : ""}
+    <h2>${o.name}</h2>
+    <p>${o.description}</p>
+    <div class="prompt-label">Positive Prompt
+      <button class="copy" onclick="copyPrompt('positive',${id})">Copy ♡</button>
+    </div>
+    <div class="prompt">${escapeHTML(o.positive)}</div>
+    <div class="prompt-label">Negative Prompt
+      <button class="copy" onclick="copyPrompt('negative',${id})">Copy ♡</button>
+    </div>
+    <div class="prompt">${escapeHTML(o.negative)}</div>
+    <button class="close" onclick="document.getElementById('detail').close()">Close ♡</button>
+  `;
+  document.getElementById("detail").showModal();
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
+  })[c]);
+}
+
+async function copyPrompt(type,id) {
+  const o = outfits.find(x => x.id === id);
+  const value = o[type];
+  try {
+    await navigator.clipboard.writeText(value);
+    alert("Copied to clipboard ♡");
+  } catch(e) {
+    const area = document.createElement("textarea");
+    area.value = value;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+    alert("Copied ♡");
+  }
+}
+
+document.getElementById("filters").addEventListener("click", e => {
+  if (!e.target.matches("button")) return;
+  category = e.target.dataset.category;
+  document.querySelectorAll("#filters button").forEach(b =>
+    b.classList.toggle("active", b === e.target)
+  );
+  render();
+});
+
+search.addEventListener("input", render);
+render();
+</script>
+</body>
+</html>
